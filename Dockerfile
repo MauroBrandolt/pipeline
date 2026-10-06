@@ -13,11 +13,11 @@ FROM python:3.11-slim-bookworm
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-	&& apt-get upgrade -y \
-	&& pip install --no-cache-dir -r requirements.txt \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 COPY . .
 
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser \
