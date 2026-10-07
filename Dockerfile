@@ -13,9 +13,10 @@ FROM python:3.15.0rc2-slim-trixie
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt \
-    && apt install gcc -y \
+RUN apt-get update \
+    && apt-get install gcc -y \
     && apt-get upgrade -y \
+    && pip install --no-cache-dir -r requirements.txt \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 COPY . .
